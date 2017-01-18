@@ -20,7 +20,7 @@ Install project dependencies
 composer install
 ```
 
-Create a database using PhpMyAdmin - guestbook
+Create a database using PhpMyAdmin - `guestbook`
 
 Then duplicate `.env.example` to `.env`
 
