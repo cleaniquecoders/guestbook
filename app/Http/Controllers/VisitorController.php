@@ -25,10 +25,9 @@ class VisitorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-
-        $id=1;
+        $id = $request->input('user_id');
 
         $user = User::find($id);
         $companies = Company::all();
@@ -44,13 +43,13 @@ class VisitorController extends Controller
      */
     public function store(Request $request)
     {
-        $visit = new Visit;
-
         $this->validate($request, [
             'user_id' => 'required',
             'company_id' => 'required|min:1',
             'purpose' => 'required',
         ]);
+        
+        $visit = new Visit;
 
         $visit->user_id = $request->user_id;
         $visit->company_id = $request->company_id;
