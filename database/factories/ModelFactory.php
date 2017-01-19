@@ -20,5 +20,29 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'phone' => $faker->e164PhoneNumber,
+        'company_id' => $faker->randomElement(range(1,100)),
+        'ic' => $faker->randomNumber(9),
+        'passport' =>  $faker->randomNumber(9),
+        'is_admin' => $faker->boolean,
+        'is_visitor' => $faker->boolean,
+    ];
+});
+
+$factory->define(App\Company::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->company,
+        'is_tenant' => $faker->boolean,
+        'floor' => $faker->randomElement(range(0,40)),
+    ];
+});
+
+$factory->define(App\Visit::class, function (Faker\Generator $faker) {
+
+    return [
+        'user_id' => $faker->randomElement(range(1,100)),
+        'company_id' => $faker->randomElement(range(1,10)),
+        'purpose' => $faker->paragraph
     ];
 });
