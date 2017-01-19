@@ -3,48 +3,101 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Visit;
-use Auth;
 
 class VisitorController extends Controller
 {
-    function form() {
-    	$name = "Ziey";
-    	$ic = "871113115212";
-    	$phone = "0135867786";
-    	$id = "1";
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
 
-   		return view('form',compact('name','ic','phone','id'));
-	}
-	
- //    function form2(Request $r) {
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $name = "Ziey";
+        $ic = "871113115212";
+        $phone = "0135867786";
+        $id = "1";
 
- //    	$visitor = new Visitor;
-	// 	if(!empty($r->id)){
-	// 		$visitor = Visitor::find($r->id);
-	// 	}
-	
-	//     return view('form',compact('visitor'));
-	// }
+        return view('form', compact('name', 'ic', 'phone', 'id'));
+    }
 
-	function submitform(Request $r) {
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $visit = new Visit;
 
-	 	$visit = new Visit;
-	 	//$visitor = Visitor::find($r->id);
+        $this->validate($request, [
+            'user_id' => 'required',
+            'floor' => 'required|integer',
+            'purpose' => 'required',
+        ]);
 
-	 	$this->validate($r, [
-    		'user_id' => 'required',
-    		'floor' => 'required|integer',
-    		'purpose' => 'required',
-		]);
+        $visit->user_id = $request->user_id;
+        $visit->floor = $request->floor;
+        $visit->purpose = $request->purpose;
 
-		$visit->user_id=$r->user_id;
-	 	$visit->floor=$r->floor;
-	 	$visit->purpose=$r->purpose;
+        $visit->save();
 
-    	$visit->save();
+        return redirect('/');
+    }
 
-   		return redirect('/');
-		//return $r->purpose."vv";
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }
