@@ -10,7 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+date_default_timezone_set('Asia/Kuala_Lumpur');
+
+Route::get('/form' , 'VisitorController@form');
+
+Route::post('/form' , 'VisitorController@submitform');
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
