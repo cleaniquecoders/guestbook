@@ -19,12 +19,12 @@
 		    </div>
 		@endif
 
-		<input type="hidden" name="user_id" value="{{ $id }}">
+		<input type="hidden" name="user_id" value="{{ $user->id }}">
 		<!-- Text input-->
 		<div class="form-group">
 		  <label class="col-md-4 control-label" for="name">Name</label>  
 		  <div class="col-md-4"> 
-		  <input id="textinput" name="name" type="text" placeholder="" class="form-control input-md" value="{{ $name }}" disabled> 
+		  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" value="{{ $user->name }}" disabled> 
 		  </div>
 		</div>
 
@@ -32,7 +32,7 @@
 		<div class="form-group">
 		  <label class="col-md-4 control-label" for="ic">IC/Passport Number</label>  
 		  <div class="col-md-4">
-		  <input id="textinput" name="ic" type="text" placeholder="" class="form-control input-md" value="{{ $ic }}" disabled>    
+		  <input id="ic" name="ic" type="text" placeholder="" class="form-control input-md" value="{{ $user->ic }}" disabled>    
 		  </div>
 		</div>
 
@@ -40,18 +40,19 @@
 		<div class="form-group">
 		  <label class="col-md-4 control-label" for="phone">Telephone</label>  
 		  <div class="col-md-4">
-		  <input id="textinput" name="phone" type="text" placeholder="" class="form-control input-md" value="{{ $phone }}" disabled>    
+		  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" value="{{ $user->phone }}" disabled>    
 		  </div>
 		</div>
 
 		<!-- Select Basic -->
 		<div class="form-group">
-		  <label class="col-md-4 control-label" for="tenant">Tenant</label>
+		  <label class="col-md-4 control-label" for="company_id">Company</label>
 		  <div class="col-md-4">
-		    <select id="tenant" name="tenant" class="form-control">
-		      <option value="">Select</option>
-		      <option value="1">Option one</option>
-		      <option value="2">Option two</option>
+		    <select id="company_id" name="company_id" class="form-control">
+	    	<option value="">Select</option>
+		    @foreach($companies as $company)
+		    	<option value="{{ $company->id }}"  {{ (old('company_id') == $company->id) ? "selected":"" }}>{{ $company->name }}</option>
+		    @endforeach
 		    </select>
 		  </div>
 		</div>
@@ -60,7 +61,7 @@
 		<div class="form-group">
 		  <label class="col-md-4 control-label" for="purpose">Purpose</label>
 		  <div class="col-md-4">                     
-		    <textarea class="form-control" id="textarea" name="purpose">{{ old('purpose') }}</textarea>
+		    <textarea class="form-control" id="purpose" name="purpose">{{ old('purpose') }}</textarea>
 		  </div>
 		</div>
 
@@ -68,7 +69,7 @@
 		<div class="form-group">
 		  <label class="col-md-4 control-label" for="singlebutton"></label>
 		  <div class="col-md-4">
-		    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+		    <button id="submitbutton" name="submitbutton" class="btn btn-primary">Submit</button>
 		  </div>
 		</div>
 

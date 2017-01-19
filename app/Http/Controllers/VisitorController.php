@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Visit;
+use App\User;
+use App\Company;
+
 
 class VisitorController extends Controller
 {
@@ -13,7 +17,7 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->route('visitors.create');
     }
 
     /**
@@ -23,12 +27,13 @@ class VisitorController extends Controller
      */
     public function create()
     {
-        $name = "Ziey";
-        $ic = "871113115212";
-        $phone = "0135867786";
-        $id = "1";
 
-        return view('form', compact('name', 'ic', 'phone', 'id'));
+        $id=1;
+
+        $user = User::find($id);
+        $companies = Company::all();
+
+        return view('visitors.create',compact('user','companies'));
     }
 
     /**
@@ -43,12 +48,12 @@ class VisitorController extends Controller
 
         $this->validate($request, [
             'user_id' => 'required',
-            'floor' => 'required|integer',
+            'company_id' => 'required|min:1',
             'purpose' => 'required',
         ]);
 
         $visit->user_id = $request->user_id;
-        $visit->floor = $request->floor;
+        $visit->company_id = $request->company_id;
         $visit->purpose = $request->purpose;
 
         $visit->save();
