@@ -13,9 +13,13 @@
 
 Route::resource('visitors', 'VisitorController');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','VisitorController@check');
+
+Route::post('/','VisitorController@semak');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
