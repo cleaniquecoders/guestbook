@@ -27,6 +27,8 @@ class VisitorController extends Controller
      */
     public function create(Request $request)
     {
+
+        $id=request()->id;
         $id = $request->input('user_id');
 
         $user = User::find($id);
@@ -103,5 +105,33 @@ class VisitorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function check(){
+        return view('check');
+    }
+
+    function semak(Request $i){
+
+        $this->validate($i, [
+            'number' => 'required',
+            ]);
+
+        $check=User::where('ic',$i->input('number'))
+        ->orwhere('passport',$i->input('number'))
+        ->get();
+
+        if ($check->isEmpty()){
+            // return redirect('Regs');
+            return "mirul";
+        }
+        else{
+            foreach ($check as $checkUser) {
+                $id=$checkUser->id;
+                return redirect()->route('visitors.create',['id'=>$id]);//->with('id',$id);
+                //return $id;
+            }
+            //return redirect('visitors.create',compact('id'));           
+        }    
     }
 }
